@@ -1,0 +1,14 @@
+**/.next/**
+/dist/**
+**/tmp/**
+
+.eslintrc.json
+.github
+**/node_modules/**
+
+**/public/**
+**/coverage/**
+**/storybook-static/**
+/web-dir/**
+/ios/**
+/android/**

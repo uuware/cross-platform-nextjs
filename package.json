@@ -1,0 +1,122 @@
+{
+  "name": "cross-platform-nextjs",
+  "version": "0.0.1",
+  "private": true,
+  "main": "electron/main.js",
+  "engines": {
+    "node": ">= 16.9.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "sync": "npx cap sync",
+    "lint": "next lint",
+    "open:ios": "npx cap open ios",
+    "open:android": "npx cap open android",
+    "run:ios": "npx cap run ios",
+    "run:android": "npx cap run android",
+    "run:electron": "electron .",
+    "build:mac": "electron-builder build --mac",
+    "build:linux": "electron-builder build --linux",
+    "build:win": "electron-builder build --win",
+    "unpack:mac": "npx asar extract dist/mac-arm64/cross-platform-nextjs.app/Contents/Resources/app.asar dist/mac-arm64/cross-platform-nextjs.app/Contents/Resources/app.asar-unpack",
+    "unpack:linux": "npx asar extract dist/linux-arm64-unpacked/resources/app.asar dist/linux-arm64-unpacked/resources/app.asar-unpack",
+    "unpack:win": "npx asar extract dist/win-arm64-unpacked/resources/app.asar dist/win-arm64-unpacked/resources/app.asar-unpack",
+    "publish": "electron-builder build -p always",
+    "app:dev": "npm run dev --workspace=frontend",
+    "app:build": "npm run build --workspace=frontend",
+    "app:test": "npm run test --workspace=frontend",
+    "app:export": "npm run export --workspace=frontend",
+    "dev": "run-p --print-label app:dev",
+    "test": "npm run app:test",
+    "export": "npm run app:export && npm run sync",
+    "format": "prettier --write \"**/*.{js,json,css,scss,md,html,yaml,ts,jsx,tsx}\""
+  },
+  "dependencies": {
+    "electron-log": "^4.4.1",
+    "electron-progressbar": "^2.0.1",
+    "electron-serve": "~1.1.0",
+    "electron-updater": "^4.3.9",
+    "electron-window-state": "~5.0.3"
+  },
+  "devDependencies": {
+    "@capacitor/android": "3.9.0",
+    "@capacitor/cli": "^3.7.0",
+    "@capacitor/core": "^3.0.1",
+    "@capacitor/ios": "3.9.0",
+    "@capacitor/status-bar": "^1.0.1",
+    "@ionic/cli": "^6.20.8",
+    "@types/node": "18.8.3",
+    "electron": "^21.1.0",
+    "electron-builder": "^23.6.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.8.1",
+    "typescript": "^4.9.4"
+  },
+  "build": {
+    "appId": "com.uuware.cross-platform-app",
+    "artifactName": "${name}-${os}-${arch}-${version}.${ext}",
+    "extraResources": "electron/extra",
+    "files": [
+      "web-dir/**/*",
+      "electron/main.js",
+      "LICENSE"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable",
+        "7z",
+        "zip"
+      ],
+      "icon": "electron/build/icons/icon.ico"
+    },
+    "mac": {
+      "target": [
+        "zip",
+        "dmg"
+      ],
+      "category": "public.app-category.lifestyle",
+      "darkModeSupport": true,
+      "entitlements": "electron/configuration/osx/entitlements.mac.plist",
+      "entitlementsInherit": "electron/configuration/osx/entitlements.mac.plist",
+      "hardenedRuntime": true,
+      "icon": "electron/build/icons/icon.icns"
+    },
+    "linux": {
+      "target": [
+        "tar.gz",
+        "appImage"
+      ],
+      "icon": "electron/build/icons/icon.png",
+      "category": "Utility",
+      "synopsis": "A very short description, like a slogan",
+      "description": "A description of the application on what it does."
+    },
+    "portable": {
+      "artifactName": "${name}-${os}-${arch}-portable-${version}.${ext}"
+    },
+    "msi": {
+      "oneClick": false,
+      "warningsAsErrors": false
+    },
+    "nsis": {
+      "allowElevation": true,
+      "oneClick": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "differentialPackage": false,
+      "artifactName": "${name}-${os}-${arch}-installer-${version}.${ext}",
+      "allowToChangeInstallationDirectory": true
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "uuware.com",
+        "repo": "cross-platform-nextjs",
+        "releaseType": "draft"
+      }
+    ]
+  }
+}

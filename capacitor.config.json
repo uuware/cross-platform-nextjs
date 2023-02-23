@@ -1,0 +1,13 @@
+{
+  "appId": "com.uuware.crossplatformnextjs",
+  "appName": "cross-platform-nextjs",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "web-dir",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}
