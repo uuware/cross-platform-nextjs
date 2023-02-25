@@ -98,16 +98,8 @@ jobs:
       #     # (No need to define this secret in the repo settings)
       #     GITHUB_TOKEN: ${{ secrets.github_token }}
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+      - name: Release
+        uses: softprops/action-gh-release@v1
 
 # - run: echo "::set-env name=VERSION::$(node dist/package-version.js)"
 # path: release/icons-font-desktop-${{ env.VERSION }}.dmg
