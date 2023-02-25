@@ -31,7 +31,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "SKIP_SSR=1 next build && next export -o ../../web-dir",
+    "export": "next build && next export -o ../../web-dir",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:update-snapshot": "jest --updateSnapshot",
