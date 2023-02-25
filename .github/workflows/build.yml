@@ -63,11 +63,15 @@ jobs:
 
       - name: cleanup artifacts
         run: |
+            npx rimraf "dist/win-unpacked"
             npx rimraf "dist/win-arm64-unpacked"
+            npx rimraf "dist/linux-unpacked"
             npx rimraf "dist/linux-arm64-unpacked"
+            npx rimraf "dist/mac"
             npx rimraf "dist/mac-arm64"
             npx rimraf "ios"
             npx rimraf "android"
+            npx rimraf "dist/*.blockmap"
             npx rimraf "dist/*.yaml"
             npx rimraf "dist/*.yml"
 
