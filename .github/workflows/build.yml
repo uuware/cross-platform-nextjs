@@ -58,7 +58,7 @@ jobs:
         run: dir dist
 
       - name: list
-        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
+        #if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
         run: ls -l dist
 
       - name: cleanup artifacts
@@ -74,6 +74,9 @@ jobs:
             npx rimraf "dist/*.blockmap"
             npx rimraf "dist/*.yaml"
             npx rimraf "dist/*.yml"
+
+      - name: list again
+        run: ls -l dist
 
       - name: upload artifacts
         uses: actions/upload-artifact@v2
