@@ -58,30 +58,36 @@ jobs:
         run: dir dist
 
       - name: list
-        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
+        #if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
         run: ls -l dist
 
       - name: cleanup artifacts
         run: |
+            npx rimraf "dist/win-unpacked"
             npx rimraf "dist/win-arm64-unpacked"
+            npx rimraf "dist/linux-unpacked"
             npx rimraf "dist/linux-arm64-unpacked"
+            npx rimraf "dist/mac"
             npx rimraf "dist/mac-arm64"
             npx rimraf "ios"
             npx rimraf "android"
+            npx rimraf "dist/*.blockmap"
             npx rimraf "dist/*.yaml"
             npx rimraf "dist/*.yml"
 
-      - name: upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: cross-platform-nextjs
-          path: dist
-          # path: release/icons-font-desktop-${{ steps.package-version.outputs.current-version }}.exe
+      - name: list again
+        run: ls -l dist
+
+      # - name: upload artifacts
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: cross-platform-nextjs
+      #     path: dist
+      #     # path: release/icons-font-desktop-${{ steps.package-version.outputs.current-version }}.exe
 
       - name: release
         uses: softprops/action-gh-release@v1
-        # If the commit is tagged with a version (e.g. "v1.0.0"),
-        # release the app after building
+        # If the commit is tagged with a version (e.g. "v1.0.0"), release the app after building
         # if: startsWith(github.ref, 'refs/tags/v')
         with:
           draft: true
